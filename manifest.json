@@ -17,7 +17,7 @@
    "storage"
  ],
  "background": {
-   "scripts": ["eventPage.js"],
+   "page": "background.html",
    "persistent": false
  }
 

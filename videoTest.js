@@ -61,10 +61,14 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
       var canvas = document.getElementById('c');
 
       video.src = window.URL.createObjectURL(localMediaStream);
+      video.load();
+
       var button = document.getElementById('checkPage');
-      button.addEventListener('click', function() {
+
+      video.addEventListener('loadeddata', function() {
         canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
-        var img = canvas.toDataURL("image/png");
+        img = canvas.toDataURL("image/png");
+        console.log(img)
         $(function() {
             var params = {
                 // Request parameters
