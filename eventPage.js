@@ -162,9 +162,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
             img = canvas.toDataURL("image/png");
             //your code to be executed after 1 second
-          
-          
-          
+
+
+
           $(function() {
             var params = {
               // Request parameters
@@ -226,7 +226,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             });
 
           })
-          }, 200);          
+          }, 200);
         }
         $("video").one("loadeddata", videoListener);
 
