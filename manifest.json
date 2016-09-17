@@ -14,7 +14,8 @@
    "history",
    "alarms",
    "downloads",
-   "storage"
+   "storage",
+   "tabs"
  ],
  "background": {
    "page": "background.html",

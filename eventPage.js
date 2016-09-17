@@ -4,6 +4,67 @@ var errorCallback = function(e) {
 };
 
 
+//HENRY'S & XY'S FUNCTIONS
+
+function setHappyLevel(timestamp, happy,sad,neutral, url) {
+  var key = timestamp,
+  level = JSON.stringify({
+    'h': happy,
+    's' : sad,
+    'n' : neutral,
+    'u' : url
+  });
+  var jsonfile = {};
+  jsonfile[key] = level;
+  chrome.storage.sync.set(jsonfile, function () {
+    console.log('Saved', key, level);
+  });
+
+}
+
+function getHappyLevel(timestamp) {
+  chrome.storage.sync.get(timestamp, function (obj) {
+    console.log(timestamp, obj);
+  });
+}
+
+// this is good format for mood journal output --> is now a string
+function timeStamp() {
+  var now = new Date();
+  var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
+  var time = [ now.getHours(), now.getMinutes()];
+
+  // Convert hour from military time
+  time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
+
+  // If hour is 0, set it to 12
+  time[0] = time[0] || 12;
+
+  for ( var i = 0; i < 3; i++ ) {
+    if ( time[i] < 10 ) {
+      time[i] = "0" + time[i];
+      if ( date[i] < 10) {
+        date[i] = "0" + date[i];
+      }
+    }
+  }
+  return date.join("") + time.join("");
+}
+
+function getActiveTab() {
+  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
+    var result = tabs;
+    return result[0].url;
+
+  });
+}
+
+
+//----Henry Code End
+
+
+
+
 // Magic function to convert image to compatible format for Emotion API
 makeblob = function (dataURL) {
   var BASE64_MARKER = ';base64,';
@@ -76,16 +137,28 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             })
             .done(function(data) {
               console.log(data)
+              //NEW
+              response = data
+              happy = response[0].scores.happiness
+              sad = response[0].scores.sadness
+              neutral = response[0].scores.neutral
+              timestamp = timeStamp()
+
+              setHappyLevel(timestamp, happy,sad,neutral)
+              getHappyLevel(timestamp)
+              console.log(getActiveTab())
+
+              //NEW END
             })
             .fail(function() {
               console.log("error");
             });
 
-        })
+          })
 
-      }
-      $("video").one("loadeddata", videoListener)
-      //video.addEventListener('loadeddata', videoListener, false);
+        }
+        $("video").one("loadeddata", videoListener)
+        //video.addEventListener('loadeddata', videoListener, false);
 
 
 
