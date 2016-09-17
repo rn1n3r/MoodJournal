@@ -142,7 +142,7 @@ chrome.runtime.onMessage.addListener(
 chrome.alarms.onAlarm.addListener(function(alarm) {
   // do something
 
-  navigator.mediaDevices.getUserMedia = ( navigator.getUserMedia ||
+  navigator.getUserMedia = ( navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia ||
     navigator.msGetUserMedia);
