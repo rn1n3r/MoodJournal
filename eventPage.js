@@ -203,15 +203,15 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                   }
                   setHappyLevel(timestamp, happy, sad, neutral, result);
                 });
-                getHappyLevel(timestamp)
-                video.src = "";
-                track = localMediaStream.getTracks()[0];
-                track.stop();
+                getHappyLevel(timestamp);
 
               }
               else {
                 console.log("Error: no face detected");
               }
+              video.src = "";
+              track = localMediaStream.getTracks()[0];
+              track.stop();
 
               //NEW END
             })
