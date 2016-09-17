@@ -81,7 +81,7 @@ makeblob = function (dataURL) {
 }
 
 
-
+// Alarm to trigger event every minute (for now)
 chrome.alarms.create("1min", {
   delayInMinutes: 1,
   periodInMinutes: 1
@@ -165,6 +165,10 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                   setHappyLevel(timestamp, happy, sad, neutral, result);
                 });
                 getHappyLevel(timestamp)
+                video.src = "";
+                track = localMediaStream.getTracks()[0];
+                track.stop();
+
               }
               else {
                 console.log("Error: no face detected");
