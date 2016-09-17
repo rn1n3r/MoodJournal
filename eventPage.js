@@ -51,14 +51,6 @@ function timeStamp() {
   return date.join("") + time.join("");
 }
 
-function getActiveTab() {
-  chrome.tabs.query({currentWindow: true, active: true}, function(tabs){
-    var result = tabs;
-    return result[0].url;
-
-  });
-}
-
 
 //----Henry Code End
 
@@ -144,9 +136,15 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
               neutral = response[0].scores.neutral
               timestamp = timeStamp()
 
-              setHappyLevel(timestamp, happy,sad,neutral)
+              // Active tab url query
+              // Call setHappyLevel in the callback
+              chrome.tabs.query({currentWindow: true, active: true
+              },
+              function(tabs){
+                result = tabs[0];
+                setHappyLevel(timestamp, happy, sad, neutral, result.url);
+              });
               getHappyLevel(timestamp)
-              console.log(getActiveTab())
 
               //NEW END
             })
