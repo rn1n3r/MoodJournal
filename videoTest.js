@@ -26,6 +26,30 @@ makeblob = function (dataURL) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
+
+function setHappyLevel(timestamp, happy,sad,neutral) {
+    var key = timestamp,
+        level = JSON.stringify({
+            'h': happy,
+            's' : sad,
+            'n' : neutral
+        });
+    var jsonfile = {};
+    jsonfile[key] = level;
+    chrome.storage.sync.set(jsonfile, function () {
+        console.log('Saved', key, level);
+    });
+
+}
+
+function getHappyLevel(timestamp) {
+    chrome.storage.sync.get(timestamp, function (obj) {
+        console.log(timestamp, obj);
+    });
+}
+
+
+
 navigator.getUserMedia = ( navigator.getUserMedia ||
   navigator.webkitGetUserMedia ||
   navigator.mozGetUserMedia ||
@@ -60,7 +84,14 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
                 processData: false
             })
             .done(function(data) {
-                console.log(data)
+                response = data
+                happy = response[0].scores.happiness
+                sad = response[0].scores.sadness
+                neutral = response[0].scores.neutral
+                timestamp = "0306"
+
+                setHappyLevel(timestamp, happy,sad,neutral)
+                getHappyLevel(timestamp)
             })
             .fail(function() {
                 console.log("error");
