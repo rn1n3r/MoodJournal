@@ -8,12 +8,12 @@ var errorCallback = function(e) {
 
 function setHappyLevel(timestamp, happy,sad,neutral, url) {
   var key = timestamp,
-  level = JSON.stringify({
+  level = {
     'h': happy,
     's' : sad,
     'n' : neutral,
     'u' : url
-  });
+  };
   var jsonfile = {};
   jsonfile[key] = level;
   chrome.storage.sync.set(jsonfile, function () {
@@ -87,10 +87,23 @@ chrome.alarms.create("1min", {
   periodInMinutes: 1
 });
 
+// Listen for a stop message from the popup
+chrome.runtime.onMessage.addListener(
+  function(request, sender, sendResponse) {
+
+    if (request.greeting == "hello") {
+      sendResponse({farewell: "goodbye"});
+      chrome.alarms.clear("1min");
+      var video = document.querySelector('video');
+      video.src = "";
+    }
+
+  });
+
 chrome.alarms.onAlarm.addListener(function(alarm) {
   // do something
 
-  navigator.getUserMedia = ( navigator.getUserMedia ||
+  navigator.mediaDevices.getUserMedia = ( navigator.getUserMedia ||
     navigator.webkitGetUserMedia ||
     navigator.mozGetUserMedia ||
     navigator.msGetUserMedia);
@@ -112,14 +125,14 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             var params = {
               // Request parameters
             };
-
+            $("body").css("cursor", "default");
             $.ajax({
               url: "https://api.projectoxford.ai/emotion/v1.0/recognize?" + $.param(params),
               beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/octet-stream");
                 xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","99eeef9307374b0082230b1013314f94");
-
+                $("body").css("cursor", "default");
               },
               type: "POST",
               // Request body
@@ -130,21 +143,32 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             .done(function(data) {
               console.log(data)
               //NEW
-              response = data
-              happy = response[0].scores.happiness
-              sad = response[0].scores.sadness
-              neutral = response[0].scores.neutral
-              timestamp = timeStamp()
+              response = data;
+              if (response.length != 0) {
+                happy = response[0].scores.happiness
+                sad = response[0].scores.sadness
+                neutral = response[0].scores.neutral
+                timestamp = timeStamp()
 
-              // Active tab url query
-              // Call setHappyLevel in the callback
-              chrome.tabs.query({currentWindow: true, active: true
-              },
-              function(tabs){
-                result = tabs[0];
-                setHappyLevel(timestamp, happy, sad, neutral, result.url);
-              });
-              getHappyLevel(timestamp)
+                // Active tab url query
+                // Call setHappyLevel in the callback
+                chrome.tabs.query({currentWindow: true, active: true
+                },
+                function(tabs){
+                  if (!tabs[0]) {
+                    console.log("Warning: unknown")
+                    result = "unknown";
+                  }
+                  else {
+                    result = tabs[0].url;
+                  }
+                  setHappyLevel(timestamp, happy, sad, neutral, result);
+                });
+                getHappyLevel(timestamp)
+              }
+              else {
+                console.log("Error: no face detected");
+              }
 
               //NEW END
             })
