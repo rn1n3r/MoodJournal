@@ -92,6 +92,12 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
 
                 setHappyLevel(timestamp, happy,sad,neutral)
                 getHappyLevel(timestamp)
+
+              //   storage = StorageArea.getBytesInUse('0306', function(storage)){
+              //   console.log(storage);
+              //  });
+
+
             })
             .fail(function() {
                 console.log("error");
