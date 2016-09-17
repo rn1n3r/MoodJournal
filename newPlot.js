@@ -11,6 +11,8 @@ chrome.storage.sync.get(null, function(items) {
 		//append keys array used for x axis
 		var xaxis = allKeys;
 
+		// removes "key" key
+		xaxis.splice(-1,1)
 
 		//everything up to here works
 		//use keys to pull values and put into 3 different arrays for the traces
@@ -26,43 +28,30 @@ chrome.storage.sync.get(null, function(items) {
 		// 		console.log(obj[curKey].h)
 		// 	});
 		
+		var y1 = [];
+		var y2 = [];
+		var y3 = [];
+		var u = [];
 
+		$.each(xaxis, function (index, value) {
+			chrome.storage.sync.get(value, function(obj) {
+				y1.push(obj[value].h);
+				y2.push(obj[value].s);
+				y3.push(obj[value].n);
+				u.push(obj[value].u);
+				
 
-		for (var i = 0; i < xaxis.length; i++) {
+			});
 
-			if (xaxis[i] != 'key') {
-				curKey = xaxis[i]
+		});
+		console.log(y1);
 
-				console.log(xaxis[i])
+		console.log(y2);
 
-				chrome.storage.sync.get(curKey, function(obj) {
-					ans1 = obj[curKey].h
-					y1.push.apply(ans1)
-					console.log(ans1)
-					console.log(y1)
-				});
-				chrome.storage.sync.get(curKey, function(obj) {
-					ans2 = obj[curKey].s 
-				    y2.push.apply(ans2)
-				    console.log(ans2)
-				    console.log(y2)
-				});
-				chrome.storage.sync.get(curKey, function(obj) {
-					ans3 = obj[curKey].n
-					y3.push.apply(ans3)
-					console.log(ans3)
-					console.log(y3)
-				});
-				chrome.storage.sync.get(curKey, function(obj) {
-					ans4 = obj[curKey].u
-					u.push.apply(ans4)
-					console.log(ans4)
-					console.log(y4)
-				});
-			}
+		console.log(y3);
 
-			
-		};
+		console.log(u);
+
 
 		//henry's code 
 
