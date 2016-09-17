@@ -158,8 +158,13 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
         var button = document.getElementById('checkPage');
 
         var videoListener = function() {
-          canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
-          img = canvas.toDataURL("image/png");
+          setTimeout(function() {
+            canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
+            img = canvas.toDataURL("image/png");
+            //your code to be executed after 1 second
+          
+          
+          
           $(function() {
             var params = {
               // Request parameters
@@ -179,8 +184,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
               processData: false,
 
             })
-            .done(function(data) {
+            .done(function(data, statusText, xhr) {
               console.log(data)
+              console.log(xhr.status)
               //NEW
               response = data;
               if (response.length != 0) {
@@ -220,8 +226,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             });
 
           })
-
+          }, 200);          
         }
         $("video").one("loadeddata", videoListener);
+
       }, errorCallback);
     });
