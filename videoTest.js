@@ -37,35 +37,44 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
       var canvas = document.getElementById('c');
 
       video.src = window.URL.createObjectURL(localMediaStream);
+      video.load();
+
       var button = document.getElementById('checkPage');
-      button.addEventListener('click', function() {
+
+      video.addEventListener('loadeddata', function() {
         canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
-        var img = canvas.toDataURL("image/png");
+        img = canvas.toDataURL("image/png");
+        console.log(img)
         $(function() {
-            var params = {
-                // Request parameters
-            };
+          var params = {
+            // Request parameters
+          };
 
-            $.ajax({
-                url: "https://api.projectoxford.ai/emotion/v1.0/recognize?" + $.param(params),
-                beforeSend: function(xhrObj){
-                    // Request headers
-                    xhrObj.setRequestHeader("Content-Type","application/octet-stream");
-                    xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","99eeef9307374b0082230b1013314f94");
+          $.ajax({
+            url: "https://api.projectoxford.ai/emotion/v1.0/recognize?" + $.param(params),
+            beforeSend: function(xhrObj){
+              // Request headers
+              xhrObj.setRequestHeader("Content-Type","application/octet-stream");
+              xhrObj.setRequestHeader("Ocp-Apim-Subscription-Key","99eeef9307374b0082230b1013314f94");
 
-                },
-                type: "POST",
-                // Request body
-                data: makeblob(img),
-                processData: false
-            })
-            .done(function(data) {
-                console.log(data)
-            })
-            .fail(function() {
-                console.log("error");
-            });
-        });
+            },
+            type: "POST",
+            // Request body
+            data: makeblob(img),
+            processData: false
+          })
+          .done(function(data) {
+            console.log(data)
+          })
+          .fail(function() {
+            console.log("error");
+          });
+
+      }, false);
+      video.src = "";
+
+
+
       });
 
 
