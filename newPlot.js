@@ -1,8 +1,3 @@
-var y1 = []
-var y2 = []
-var y3 = []
-var u = []
-
 chrome.storage.sync.get(null, function(items) {
 		var allKeys = Object.keys(items);
 		console.log(allKeys);
@@ -33,58 +28,90 @@ chrome.storage.sync.get(null, function(items) {
 		var y3 = [];
 		var u = [];
 
+
 		$.each(xaxis, function (index, value) {
 			chrome.storage.sync.get(value, function(obj) {
-				y1.push(obj[value].h);
-				y2.push(obj[value].s);
-				y3.push(obj[value].n);
+				y1.push(obj[value].h * 100);
+				y2.push(obj[value].s * 100);
+				y3.push(obj[value].n * 100);
 				u.push(obj[value].u);
 				
 
 			});
 
 		});
-		console.log(y1);
 
-		console.log(y2);
+		var text = []
+		$.each(xaxis, function(index, value) {
+			text.push("Time " + value.substring(8,10) + ":" + value.substring(10,12))
 
-		console.log(y3);
+		})
+		
+		// console.log(y1);
 
-		console.log(u);
+		// console.log(y2);
+
+		// console.log(y3);
+
+		// console.log(u);
 
 
 		//henry's code 
 
+		N = xaxis.length
+		var x = Array.from(Array(N).keys())
+
+
 
 
 		var happyTrace = {
-			x: xaxis,
+			x: x,
 			y: y1,
 			name: "Happiness",
-			type: 'bar'
+			mode: 'markers',
+			type: 'scatter',
+			text: text
 		};
 
 		var sadTrace = {
-			x: xaxis,
+			x: x,
 			y: y2,
 			name: "Sadness",
-			type: 'bar'
+			mode: 'markers',
+			type: 'scatter',
+			text: text
 		};
 
 		var neutralTrace = {
-			x: xaxis,
+			x: x,
 			y: y3,
 			name: "Neutral",
-			type: 'bar'
+			mode: 'markers',
+			type: 'scatter',
+			text: text
 		};
 
-		var data = [happyTrace, sadTrace, neutralTrace];
+		var data = [happyTrace, sadTrace];
 
-		var layout = {barmode: 'stack',
-		              xaxis: {autorange: 'reversed'}};
+		var layout = {
+			
+			title: 'Mood Journal',
+			xaxis: {
+				title: 'Time'
+			},
+			yaxis: {
+
+				title: '% Mood'
+			},
+			autosize: true
+
+
+		};
 
 		TESTER = document.getElementById('tester');
 		Plotly.newPlot(TESTER, data, layout);
+
+		document.querySelector('[data-title="Autoscale"]').click()
 
 		//this part works now. Get for loop working
 
