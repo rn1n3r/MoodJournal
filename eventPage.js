@@ -55,8 +55,6 @@ function timeStamp() {
 //----Henry Code End
 
 
-
-
 // Magic function to convert image to compatible format for Emotion API
 makeblob = function (dataURL) {
   var BASE64_MARKER = ';base64,';
@@ -80,6 +78,13 @@ makeblob = function (dataURL) {
   return new Blob([uInt8Array], { type: contentType });
 }
 
+chrome.runtime.onInstalled.addListener(function(details){
+  var onState = {};
+  onState["key"] = true;
+  chrome.storage.sync.set(onState, function () {
+    console.log('Saved');
+  });
+});
 
 // Alarm to trigger event every minute (for now)
 chrome.alarms.create("1min", {
@@ -88,17 +93,51 @@ chrome.alarms.create("1min", {
 });
 
 // Listen for a stop message from the popup
+
 chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 
     if (request.greeting == "hello") {
-      sendResponse({farewell: "goodbye"});
-      chrome.alarms.clear("1min");
-      var video = document.querySelector('video');
-      video.src = "";
+      chrome.storage.sync.get("key", function (obj) {
+        if (obj.key == true) {
+          chrome.alarms.clear("1min");
+          var video = document.querySelector('video');
+          video.src = "";
+
+          var onState = {};
+          onState["key"] = false;
+          chrome.storage.sync.set(onState, function () {
+            console.log('Saved');
+          });
+          sendResponse({farewell: "Turn ON Mood Tracking!"});
+        }
+        else {
+          chrome.alarms.create("1min", {
+            delayInMinutes: 1,
+            periodInMinutes: 1
+          });
+          var onState = {};
+          onState["key"] = true;
+          chrome.storage.sync.set(onState, function () {
+            console.log('Saved');
+          });
+
+
+          sendResponse({farewell: "Turn OFF Mood Tracking!"});
+        }
+
+
+
+
+      });
+      console.log()
+
+
     }
 
-  });
+    return true;
+  }
+);
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
   // do something
@@ -183,14 +222,6 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
           })
 
         }
-        $("video").one("loadeddata", videoListener)
-        //video.addEventListener('loadeddata', videoListener, false);
-
-
-
-
-
-
-
+        $("video").one("loadeddata", videoListener);
       }, errorCallback);
     });
