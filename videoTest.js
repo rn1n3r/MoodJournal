@@ -3,6 +3,7 @@ var errorCallback = function(e) {
   console.log('Error', e);
 };
 
+// Magic function to convert image to compatible format for Emotion API
 makeblob = function (dataURL) {
   var BASE64_MARKER = ';base64,';
   if (dataURL.indexOf(BASE64_MARKER) == -1) {
@@ -59,7 +60,7 @@ navigator.getUserMedia = ( navigator.getUserMedia ||
                 processData: false
             })
             .done(function(data) {
-                console.log(data[0])
+                console.log(data)
             })
             .fail(function() {
                 console.log("error");

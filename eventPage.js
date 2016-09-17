@@ -5,5 +5,5 @@ chrome.alarms.create("1min", {
 });
 
 chrome.alarms.onAlarm.addListener(function(alarm) {
-    
+    // do something
 });
