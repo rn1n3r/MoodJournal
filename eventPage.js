@@ -185,8 +185,8 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
 
             })
             .done(function(data, statusText, xhr) {
-              console.log(data)
-              console.log(xhr.status)
+              // console.log(data)
+              // console.log(xhr.status)
               //NEW
               response = data;
               if (response.length != 0) {
