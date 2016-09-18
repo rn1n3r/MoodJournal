@@ -1,0 +1,33 @@
+#title {
+	
+	height:50%;
+	background-color: #A3C89B;
+}
+
+#title h1{
+
+	text-align: left; padding: 5% 5% 0 5%;font-size:100; color: white; margin:0;
+}
+
+#title h3{
+	text-align: left; padding: 0 0 0 5%; font-size:25; color: white; margin:0;
+}
+
+#title h4{
+	text-align: left; padding: 30 0 0 5%; font-size:14; margin:0;
+
+}
+
+#infobar {
+	height:50%; background-color: #FDD7E4;
+}
+
+#infobar h1{
+	padding: 30 0 0 5%;
+	color: #8F5834;
+}
+
+#infobar #info{
+
+	padding: 0 0 0 5%;
+}

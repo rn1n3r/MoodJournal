@@ -79,8 +79,9 @@ chrome.storage.sync.get(null, function(items) {
 
 	var data1 = [happyTrace, sadTrace, neutralTrace];
 
-	graphTitle1 = 'Mood Journal ' + text[0] + ' - ' + text[text.length - 1]
+	// graphTitle1 = 'Mood Journal ' + text[0] + ' - ' + text[text.length - 1]
 
+graphTitle1 = 'Happiness/Sadness'
 	var layout1 = {
 
 		title: graphTitle1,
@@ -109,7 +110,7 @@ chrome.storage.sync.get(null, function(items) {
 	graph1.on('plotly_click', function(data){
 		console.log(pageTitle[data.points[0].x]);
 		infoBox = document.getElementById("info");
-		infoBox.innerHTML = "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+		infoBox.innerHTML = "<a style=\"color:#8F5834; font-size: 20;\" href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
 	});
 
 	// Graph 2
@@ -161,8 +162,9 @@ chrome.storage.sync.get(null, function(items) {
 
 	var data2 = [angerTrace, contemptTrace, disgustTrace, surpriseTrace, fearTrace];
 
-	graphTitle2 = 'Bonus Emotions ' + text[0] + ' - ' + text[text.length - 1]
+	// graphTitle2 = 'Bonus Emotions ' + text[0] + ' - ' + text[text.length - 1]
 
+	graphTitle2 = 'Other Emotions'
 	var layout2 = {
 
 		title: graphTitle2,

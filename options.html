@@ -2,15 +2,34 @@
 <head>
 	<script src="jquery.min.js"></script>
 	<script src="plotly-latest.min.js"></script>
+	<link rel="stylesheet" type="text/css" href="henry.css">
 </head>
 
 <title>Options</title>
 
 <body>
-	<script src="videoPermission.js">
-	</script>
+	<script src="videoPermission.js"></script>
+
+	<div id="title">
+		
+		<h1>Mood Journal</h1>
+		<h3>an simple log for your emotional well-being</h3> 
+		<h4><a href="https://github.com/rn1n3r/MoodJournal" style="color: white;">v0.2</a></h4>
+
+
+	</div>
+
+	
 	<div id="graph" style="width: auto; height: auto;"><!-- Plotly chart will be drawn inside this DIV --></div>
-	<div id="info"></div>
+
+	<div id="infobar">
+
+		<h1>Site</h1>
+		<div id="info"></div>
+
+
+	</div>
+
 	<div id="extraEmotes" style="width: auto; height: auto;"><!-- Plotly chart will be drawn inside this DIV --></div>
 	<div id="info2"></div>
 	<script src="newPlot.js"></script>
