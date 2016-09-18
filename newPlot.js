@@ -52,7 +52,7 @@ chrome.storage.local.get(null, function(items) {
 	var happyTrace = {
 		x: x,
 		y: y1,
-		name: "Sad",
+		name: "Happy",
 		mode: 'line',
 		type: 'scatter',
 		text: text
@@ -61,7 +61,7 @@ chrome.storage.local.get(null, function(items) {
 	var sadTrace = {
 		x: x,
 		y: y2,
-		name: "Happiness",
+		name: "Sad",
 		mode: 'line',
 		type: 'scatter',
 		text: text
@@ -78,7 +78,7 @@ chrome.storage.local.get(null, function(items) {
 
 	// Graph 1
 
-	var data1 = [happyTrace, sadTrace, neutralTrace];
+	var data1 = [sadTrace, happyTrace, neutralTrace];
 
 	// graphTitle1 = 'Mood Journal ' + text[0] + ' - ' + text[text.length - 1]
 
@@ -114,9 +114,13 @@ graphTitle1 = 'Happiness/Sadness'
 		infoBox.innerHTML = "<b>Site: </b><a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
 
 		infoBox = document.getElementById("scores");
-		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; \">" + "Sad %: " + y1[data.points[0].x] + "</p>";
-		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Happy %: " + y2[data.points[0].x] + "</p>";
+
+		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; \">" + text[data.points[0].x] + "</p>";
+
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Happy %: " + y1[data.points[0].x] + "</p>";
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Sad %: " + y2[data.points[0].x] + "</p>";
 		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Neutral %: " + y3[data.points[0].x] + "</p>";
+
 
 
 
@@ -214,8 +218,11 @@ graphTitle1 = 'Happiness/Sadness'
 		infoBox.innerHTML = "<b>Site: </b><a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
 
 		infoBox = document.getElementById("scores");
-		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; \">" + "Sad %: " + y1[data.points[0].x] + "</p>";
-		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Happy %: " + y2[data.points[0].x] + "</p>";
+
+		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; \">" + text[data.points[0].x] + "</p>";
+
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Happy %: " + y1[data.points[0].x] + "</p>";
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Sad %: " + y2[data.points[0].x] + "</p>";
 		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Neutral %: " + y3[data.points[0].x] + "</p>";
 
 
