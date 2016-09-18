@@ -10,6 +10,11 @@ chrome.storage.sync.get(null, function(items) {
 	var y1 = [];
 	var y2 = [];
 	var y3 = [];
+	var y4 = [];
+	var y5 = [];
+	var y6 = [];
+	var y7 = [];
+	var y8 = [];
 	var u = [];
 	var pageTitle = [];
 	var text = [];
@@ -19,6 +24,11 @@ chrome.storage.sync.get(null, function(items) {
 			y1.push(Math.round((obj[value].happy * 100)*100)/100);
 			y2.push(Math.round((obj[value].sad * 100)*100)/100);
 			y3.push(Math.round((obj[value].neutral * 100)*100)/100);
+			y4.push(Math.round((obj[value].anger * 100)*100)/100);
+			y5.push(Math.round((obj[value].contempt * 100)*100)/100);
+			y6.push(Math.round((obj[value].disgust * 100)*100)/100);
+			y7.push(Math.round((obj[value].surprise * 100)*100)/100);
+			y8.push(Math.round((obj[value].fear * 100)*100)/100);
 			u.push(obj[value].url);
 			pageTitle.push(obj[value].title);
 
@@ -41,7 +51,7 @@ chrome.storage.sync.get(null, function(items) {
 	var happyTrace = {
 		x: x,
 		y: y1,
-		name: "Happiness",
+		name: "Sad",
 		mode: 'line',
 		type: 'scatter',
 		text: text
@@ -50,13 +60,12 @@ chrome.storage.sync.get(null, function(items) {
 	var sadTrace = {
 		x: x,
 		y: y2,
-		name: "Sadness",
+		name: "Happiness",
 		mode: 'line',
 		type: 'scatter',
 		text: text
 	};
 
-	// Store URL in neutral
 	var neutralTrace = {
 		x: x,
 		y: y3,
@@ -66,13 +75,15 @@ chrome.storage.sync.get(null, function(items) {
 		text: text
 	};
 
-	var data = [happyTrace, sadTrace, neutralTrace];
+	// Graph 1
 
-	graphTitle = 'Mood Journal ' + text[0] + ' - ' + text[text.length - 1]
+	var data1 = [happyTrace, sadTrace, neutralTrace];
 
-	var layout = {
+	graphTitle1 = 'Mood Journal ' + text[0] + ' - ' + text[text.length - 1]
 
-		title: graphTitle,
+	var layout1 = {
+
+		title: graphTitle1,
 		xaxis: {
 			title: 'Time Points',
 			autorange: true
@@ -85,19 +96,104 @@ chrome.storage.sync.get(null, function(items) {
 
 	};
 
-	TESTER = document.getElementById('tester');
-	Plotly.plot(TESTER, data, layout).then(function() {
+	graph1 = document.getElementById('graph');
+	Plotly.plot(graph1, data1, layout1).then(function() {
 		window.requestAnimationFrame(function() {
 			window.requestAnimationFrame(function() {
 
-				Plotly.redraw(TESTER);
+				Plotly.redraw(graph1);
 			});
 		});
 	});
 
-	TESTER.on('plotly_click', function(data){
+	graph1.on('plotly_click', function(data){
 		console.log(pageTitle[data.points[0].x]);
 		infoBox = document.getElementById("info");
 		infoBox.innerHTML = "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
 	});
+
+	// Graph 2
+
+	var angerTrace = {
+		x: x,
+		y: y4,
+		name: "Anger",
+		mode: 'line',
+		type: 'scatter',
+		text: text
+	};
+
+	var contemptTrace = {
+		x: x,
+		y: y5,
+		name: "Contempt",
+		mode: 'line',
+		type: 'scatter',
+		text: text
+	};
+	
+	var disgustTrace = {
+		x: x,
+		y: y6,
+		name: "Disgust",
+		mode: 'line',
+		type: 'scatter',
+		text: text
+	};
+
+	var surpriseTrace = {
+		x: x,
+		y: y7,
+		name: "Surprise",
+		mode: 'line',
+		type: 'scatter',
+		text: text
+	};
+
+	var fearTrace = {
+		x: x,
+		y: y8,
+		name: "Fear",
+		mode: 'line',
+		type: 'scatter',
+		text: text
+	};
+
+	var data2 = [angerTrace, contemptTrace, disgustTrace, surpriseTrace, fearTrace];
+
+	graphTitle2 = 'Bonus Emotions ' + text[0] + ' - ' + text[text.length - 1]
+
+	var layout2 = {
+
+		title: graphTitle2,
+		xaxis: {
+			title: 'Time Points',
+			autorange: true
+		},
+		yaxis: {
+
+			title: '% Mood',
+			autorange: true
+		}
+
+	};
+
+	graph2 = document.getElementById('extraEmotes');
+	Plotly.plot(graph2, data2, layout2).then(function() {
+		window.requestAnimationFrame(function() {
+			window.requestAnimationFrame(function() {
+
+				Plotly.redraw(graph2);
+			});
+		});
+	});
+
+	graph2.on('plotly_click', function(data){
+		console.log(pageTitle[data.points[0].x]);
+		infoBox = document.getElementById("info2");
+		infoBox.innerHTML = "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+	});
+
+
+	
 });
