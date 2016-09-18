@@ -6,13 +6,18 @@ var errorCallback = function(e) {
 
 //HENRY'S & XY'S FUNCTIONS
 
-function setHappyLevel(timestamp, happy,sad,neutral, url) {
+function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surprise,fear,url) {
   var key = timestamp,
   level = {
-    'h': happy,
-    's' : sad,
-    'n' : neutral,
-    'u' : url
+    'happy' : happy,
+    'sad' : sad,
+    'neutral' : neutral,
+    'anger' : anger,
+    'contempt' : contempt,
+    'disgust' : disgust,
+    'surprise' : surprise,
+    'fear' : fear,
+    'url' : url
   };
   var jsonfile = {};
   jsonfile[key] = level;
@@ -194,6 +199,11 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                 happy = response[0].scores.happiness
                 sad = response[0].scores.sadness
                 neutral = response[0].scores.neutral
+                anger = response[0].scores.anger
+                contempt = response[0].scores.contempt
+                disgust = response[0].scores.disgust
+                surprise = response[0].scores.surprise
+                fear = response[0].scores.fear
                 timestamp = timeStamp()
 
                 // Active tab url query
@@ -208,7 +218,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                   else {
                     result = tabs[0].url;
                   }
-                  setHappyLevel(timestamp, happy, sad, neutral, result);
+                  setHappyLevel(timestamp, happy, sad, neutral, anger,contempt,disgust,surprise,fear, result);
                 });
                 getHappyLevel(timestamp);
 
