@@ -13,7 +13,8 @@ Whenever you feel ready, return to <Options> in the extension to review the grap
 Data Visualization
 The displayed graphs are the main source of information. They display the emotional percentages scored at the time the snapshot was taken. 
 Clicking on the data itself will display more information: Score percentage, timestamp, the URL active at that time, and the page title. 
-If there is no face detected, that timestamp will not be recorded at all. If the active tab at that time is not in Chrome, the unknown tab is reported, and no data is recorded for that timestamp. 
+If there is no face detected, that timestamp will not be recorded at all. If the active tab at that time is not in Chrome, the unknown tab 
+is reported, and no data is recorded for that timestamp. 
 
 Built With:
 JavaScript
