@@ -1,4 +1,5 @@
 #Mood Journal
+![alt tag](http://i.imgur.com/KmRhBxP.png)
 
 Integrating Microsoft's Emotion API from the Microsoft Cognitive Services as well as the computer's own video hardware into a Chrome 
 Extension that can track how you're feeling throughout the day while you browse via timed snapshots. 
