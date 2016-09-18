@@ -211,7 +211,16 @@ graphTitle1 = 'Happiness/Sadness'
 	graph2.on('plotly_click', function(data){
 		console.log(pageTitle[data.points[0].x]);
 		infoBox = document.getElementById("site");
-		infoBox.innerHTML += "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+		infoBox.innerHTML = "<b>Site: </b><a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+
+		infoBox = document.getElementById("scores");
+		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; \">" + "Sad %: " + y1[data.points[0].x] + "</p>";
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Happy %: " + y2[data.points[0].x] + "</p>";
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Neutral %: " + y3[data.points[0].x] + "</p>";
+
+
+
+
 		var canvas = document.getElementById('c');
 
 		var img = new Image;
