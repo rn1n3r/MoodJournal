@@ -31,9 +31,9 @@ chrome.storage.sync.get(null, function(items) {
 
 		$.each(xaxis, function (index, value) {
 			chrome.storage.sync.get(value, function(obj) {
-				y1.push(obj[value].h * 100);
-				y2.push(obj[value].s * 100);
-				y3.push(obj[value].n * 100);
+				y1.push(Math.round((obj[value].h * 100)*100)/100);
+				y2.push(Math.round((obj[value].s * 100)*100)/100);
+				y3.push(Math.round((obj[value].n * 100)*100)/100);
 				u.push(obj[value].u);
 				
 
@@ -43,7 +43,7 @@ chrome.storage.sync.get(null, function(items) {
 
 		var text = []
 		$.each(xaxis, function(index, value) {
-			text.push("Time " + value.substring(8,10) + ":" + value.substring(10,12))
+			text.push(value.substring(0,2) + "/" + value.substring(2,4) + " " + value.substring(8,10) + ":" + value.substring(10,12))
 
 		})
 		
@@ -60,6 +60,7 @@ chrome.storage.sync.get(null, function(items) {
 
 		N = xaxis.length
 		var x = Array.from(Array(N).keys())
+		x.map(String)
 
 
 
@@ -68,16 +69,16 @@ chrome.storage.sync.get(null, function(items) {
 			x: x,
 			y: y1,
 			name: "Happiness",
-			mode: 'markers',
+			mode: 'line',
 			type: 'scatter',
-			text: text
+			text: text 
 		};
 
 		var sadTrace = {
 			x: x,
 			y: y2,
 			name: "Sadness",
-			mode: 'markers',
+			mode: 'line',
 			type: 'scatter',
 			text: text
 		};
@@ -91,28 +92,36 @@ chrome.storage.sync.get(null, function(items) {
 			text: text
 		};
 
-		var data = [happyTrace, sadTrace];
+		var data = [happyTrace, sadTrace, neutralTrace];
 
 		var layout = {
 			
-			title: 'Mood Journal',
+			title: 'Mood Journal —',
 			xaxis: {
-				title: 'Time'
+				title: 'Time Points',
+				autorange: true
 			},
 			yaxis: {
 
-				title: '% Mood'
-			},
-			autosize: true
-
+				title: '% Mood',
+				autorange: true
+			}
 
 		};
 
 		TESTER = document.getElementById('tester');
-		Plotly.newPlot(TESTER, data, layout);
+		Plotly.plot(TESTER, data, layout);
 
-		document.querySelector('[data-title="Autoscale"]').click()
 
 		//this part works now. Get for loop working
 
+		//Trying to auto click the autoscale button lel
+
+		// $(document).ready(function(){
+		// 	$('[data-title="Autoscale"]').trigger('click');
+
+		// })
+
 });
+
+
