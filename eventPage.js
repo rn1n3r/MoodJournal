@@ -6,7 +6,7 @@ var errorCallback = function(e) {
 
 //HENRY'S & XY'S FUNCTIONS
 
-function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surprise,fear,url, title) {
+function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surprise,fear,url, title, thumbNail) {
   var key = timestamp,
   level = {
     'happy' : happy,
@@ -18,7 +18,8 @@ function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surpri
     'surprise' : surprise,
     'fear' : fear,
     'url' : url,
-    'title': title
+    'title': title,
+    'img': thumbNail
   };
   var jsonfile = {};
   jsonfile[key] = level;
@@ -167,6 +168,8 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
           setTimeout(function() {
             canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
             img = canvas.toDataURL("image/png");
+            canvas.getContext("2d").drawImage(video, 0, 0, 160, 120)
+            thumbNail = canvas.toDataURL("image/png");
             //your code to be executed after 1 second
 
 
@@ -220,7 +223,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                     resultURL = tabs[0].url;
                     resultTitle = tabs[0].title;
                   }
-                  setHappyLevel(timestamp, happy, sad, neutral, anger,contempt,disgust,surprise,fear, resultURL, resultTitle);
+                  setHappyLevel(timestamp, happy, sad, neutral, anger,contempt,disgust,surprise,fear, resultURL, resultTitle, thumbNail);
                 });
                 // getHappyLevel(timestamp);
 
