@@ -12,6 +12,7 @@
    },
    "default_popup": "popup.html"
   },
+   "icons": {"48": "icon48.png"},
   "permissions": [
    "activeTab",
    "history",
