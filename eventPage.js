@@ -6,7 +6,7 @@ var errorCallback = function(e) {
 
 //HENRY'S & XY'S FUNCTIONS
 
-function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surprise,fear,url) {
+function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surprise,fear,url, title) {
   var key = timestamp,
   level = {
     'happy' : happy,
@@ -17,7 +17,8 @@ function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surpri
     'disgust' : disgust,
     'surprise' : surprise,
     'fear' : fear,
-    'url' : url
+    'url' : url,
+    'title': title
   };
   var jsonfile = {};
   jsonfile[key] = level;
@@ -212,12 +213,14 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                 function(tabs){
                   if (!tabs[0]) {
                     console.log("Warning: unknown tab")
-                    result = "unknown";
+                    resultURL = "unknown";
+                    resultTitle = "unknown"
                   }
                   else {
-                    result = tabs[0].url;
+                    resultURL = tabs[0].url;
+                    resultTitle = tabs[0].title;
                   }
-                  setHappyLevel(timestamp, happy, sad, neutral, anger,contempt,disgust,surprise,fear, result);
+                  setHappyLevel(timestamp, happy, sad, neutral, anger,contempt,disgust,surprise,fear, resultURL, resultTitle);
                 });
                 // getHappyLevel(timestamp);
 

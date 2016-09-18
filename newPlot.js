@@ -11,6 +11,7 @@ chrome.storage.sync.get(null, function(items) {
 	var y2 = [];
 	var y3 = [];
 	var u = [];
+	var pageTitle = [];
 	var text = [];
 
 	$.each(xaxis, function (index, value) {
@@ -19,6 +20,7 @@ chrome.storage.sync.get(null, function(items) {
 			y2.push(Math.round((obj[value].sad * 100)*100)/100);
 			y3.push(Math.round((obj[value].neutral * 100)*100)/100);
 			u.push(obj[value].url);
+			pageTitle.push(obj[value].title);
 
 		});
 
@@ -54,6 +56,7 @@ chrome.storage.sync.get(null, function(items) {
 		text: text
 	};
 
+	// Store URL in neutral
 	var neutralTrace = {
 		x: x,
 		y: y3,
@@ -90,5 +93,11 @@ chrome.storage.sync.get(null, function(items) {
 				Plotly.redraw(TESTER);
 			});
 		});
+	});
+
+	TESTER.on('plotly_click', function(data){
+		console.log(pageTitle[data.points[0].x]);
+		infoBox = document.getElementById("info");
+		infoBox.innerHTML = "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
 	});
 });
