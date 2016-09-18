@@ -19,8 +19,7 @@
    "alarms",
    "downloads",
    "storage",
-   "tabs",
-   "unlimitedStorage"
+   "tabs"
  ],
  "background": {
    "page": "background.html",
