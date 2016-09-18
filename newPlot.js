@@ -1,4 +1,4 @@
-chrome.storage.sync.get(null, function(items) {
+chrome.storage.local.get(null, function(items) {
 	var xaxis = Object.keys(items);
 	console.log(xaxis);
 	//append keys array used for x axis
@@ -18,9 +18,9 @@ chrome.storage.sync.get(null, function(items) {
 	var u = [];
 	var pageTitle = [];
 	var text = [];
-
+	var thumbNail = [];
 	$.each(xaxis, function (index, value) {
-		chrome.storage.sync.get(value, function(obj) {
+		chrome.storage.local.get(value, function(obj) {
 			y1.push(Math.round((obj[value].happy * 100)*100)/100);
 			y2.push(Math.round((obj[value].sad * 100)*100)/100);
 			y3.push(Math.round((obj[value].neutral * 100)*100)/100);
@@ -31,6 +31,7 @@ chrome.storage.sync.get(null, function(items) {
 			y8.push(Math.round((obj[value].fear * 100)*100)/100);
 			u.push(obj[value].url);
 			pageTitle.push(obj[value].title);
+			thumbNail.push(obj[value].img);
 
 		});
 
@@ -107,9 +108,17 @@ chrome.storage.sync.get(null, function(items) {
 	});
 
 	graph1.on('plotly_click', function(data){
-		console.log(pageTitle[data.points[0].x]);
+		console.log(thumbNail[data.points[0].x]);
 		infoBox = document.getElementById("info");
 		infoBox.innerHTML = "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+		var canvas = document.getElementById('c');
+
+		var img = new Image;
+
+		img.onload = function(){
+		  canvas.getContext("2d").drawImage(img,0,0); // Or at whatever offset you like
+		};
+		img.src = thumbNail[data.points[0].x];
 	});
 
 	// Graph 2
@@ -131,7 +140,7 @@ chrome.storage.sync.get(null, function(items) {
 		type: 'scatter',
 		text: text
 	};
-	
+
 	var disgustTrace = {
 		x: x,
 		y: y6,
@@ -189,11 +198,20 @@ chrome.storage.sync.get(null, function(items) {
 	});
 
 	graph2.on('plotly_click', function(data){
-		console.log(pageTitle[data.points[0].x]);
+		console.log(thumbNail[data.points[0].x]);
 		infoBox = document.getElementById("info2");
 		infoBox.innerHTML = "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+		var canvas = document.getElementById('c');
+
+		var img = new Image;
+
+		img.onload = function(){
+		  canvas.getContext("2d").drawImage(img,0,0); // Or at whatever offset you like
+		};
+		img.src = thumbNail[data.points[0].x];
+
 	});
 
 
-	
+
 });
