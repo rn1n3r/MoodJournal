@@ -18,16 +18,45 @@
 
 }
 
+
+
 #infobar {
-	height:50%; background-color: #FDD7E4;
+	height:50%; background-color: #FDD7E4;	
+}
+#upper{
+	display:flex;
+	justify-content: space-around;
+	padding: 50 80 0 0;
 }
 
 #infobar h1{
-	padding: 30 0 0 5%;
 	color: #8F5834;
 }
-
-#infobar #info{
-
-	padding: 0 0 0 5%;
+#left{
+	padding: 0 100 0 0;
 }
+
+#info{
+
+	padding: 0 0 0 190;
+}
+
+#c{
+
+	padding: 0 0 0 585;
+}
+
+#score1{
+
+	padding: 0 255 0 0;
+}
+
+#score2{
+
+	padding: 0 255 0 0;
+}
+#score3{
+
+	padding: 0 255 0 0;
+}
+
