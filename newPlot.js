@@ -15,10 +15,10 @@ chrome.storage.sync.get(null, function(items) {
 
 	$.each(xaxis, function (index, value) {
 		chrome.storage.sync.get(value, function(obj) {
-			y1.push(Math.round((obj[value].h * 100)*100)/100);
-			y2.push(Math.round((obj[value].s * 100)*100)/100);
-			y3.push(Math.round((obj[value].n * 100)*100)/100);
-			u.push(obj[value].u);
+			y1.push(Math.round((obj[value].happy * 100)*100)/100);
+			y2.push(Math.round((obj[value].sad * 100)*100)/100);
+			y3.push(Math.round((obj[value].neutral * 100)*100)/100);
+			u.push(obj[value].url);
 
 		});
 
