@@ -12,33 +12,32 @@
 	<script src="videoPermission.js"></script>
 
 	<div id="title">
-		
+
 		<h1>Mood Journal</h1>
-		<h3>an simple log for your emotional well-being</h3> 
+		<h3>an simple log for your emotional well-being</h3>
 		<h4><a href="https://github.com/rn1n3r/MoodJournal" style="color: white;">v0.2</a></h4>
 
 
 	</div>
 
-	
+
 	<div id="graph" style="width: auto; height: auto;"><!-- Plotly chart will be drawn inside this DIV --></div>
 
 	<div id="infobar">
 
-		<div id = "upper" style="text-align:center"> 
-			<div class= "block"> <h1>Site</h1></div>
-			<div class= "block"> <h1>Image</h1></div>
-			<div class= "block"> <h1>Scores</h1></div>
+		<div id = "upper">
+			<div id="site"><b>Site:</b></div>
+			<b>Image:</b>
+			<canvas id="c" width=160, height=120></canvas> <br>
 		</div>
-		<div id="info"></div>
-		<div id="score1"></div>
-		<div id="score2"></div>
-		<div id="score3"></div>
+		<div id="scores">
 
-		<canvas id="c" width=160, height=120></canvas>
+		</div>
+
+
 
 <!-- 		<h1 id="scores">Scores</h1> -->
-		
+
 
 
 	</div>

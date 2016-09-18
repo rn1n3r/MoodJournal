@@ -1,12 +1,14 @@
 #title {
-	
+
 	height:50%;
 	background-color: #A3C89B;
 }
 
 #title h1{
 
-	text-align: left; padding: 5% 5% 0 5%;font-size:100; color: white; margin:0;
+	text-align: left; padding: 5% 5% 0 5%;
+	font-size:100;
+	color: white; margin:0;
 }
 
 #title h3{
@@ -21,12 +23,15 @@
 
 
 #infobar {
-	height:50%; background-color: #FDD7E4;	
+	height:50%; background-color: #FDD7E4;
 }
 #upper{
-	display:flex;
+	text-align: left;
+	display:block;
 	justify-content: space-around;
-	padding: 50 80 0 0;
+	padding: 5% 5% 0 5%;
+	font-size: 30;
+	color: #8F5834
 }
 
 #infobar h1{
@@ -42,13 +47,16 @@
 }
 
 #c{
-
-	padding: 0 0 0 585;
+	display: block;
+	margin: auto;
+	position: absolute;
 }
 
-#score1{
-
-	padding: 0 255 0 0;
+#scores{
+	display: block;
+	margin: auto;
+	text-align: left;
+	padding-left: 300px;
 }
 
 #score2{
@@ -59,4 +67,3 @@
 
 	padding: 0 255 0 0;
 }
-

@@ -88,7 +88,7 @@ makeblob = function (dataURL) {
 chrome.runtime.onInstalled.addListener(function(details){
   var onState = {};
   onState["key"] = true;
-  chrome.storage.local.set(onState, function () {
+  chrome.storage.sync.set(onState, function () {
     console.log('Saved');
   });
 });
@@ -105,7 +105,7 @@ chrome.runtime.onMessage.addListener(
   function(request, sender, sendResponse) {
 
     if (request.greeting == "hello") {
-      chrome.storage.local.get("key", function (obj) {
+      chrome.storage.sync.get("key", function (obj) {
         if (obj.key == true) {
           chrome.alarms.clear("1min");
           var video = document.querySelector('video');
@@ -113,7 +113,7 @@ chrome.runtime.onMessage.addListener(
 
           var onState = {};
           onState["key"] = false;
-          chrome.storage.local.set(onState, function () {
+          chrome.storage.sync.set(onState, function () {
             console.log('Saved');
           });
           sendResponse({farewell: "Turn ON Mood Tracking!"});
@@ -125,7 +125,7 @@ chrome.runtime.onMessage.addListener(
           });
           var onState = {};
           onState["key"] = true;
-          chrome.storage.local.set(onState, function () {
+          chrome.storage.sync.set(onState, function () {
             console.log('Saved');
           });
 
@@ -180,7 +180,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             };
             $("body").css("cursor", "default");
             $.ajax({
-              url: "https://api.projectoxford.ai/emotion/v1.0/recognize?" + $.param(params),
+                  url: "https://api.projectoxford.ai/emotion/v1.0/recognize?" + $.param(params),
               beforeSend: function(xhrObj){
                 // Request headers
                 xhrObj.setRequestHeader("Content-Type","application/octet-stream");

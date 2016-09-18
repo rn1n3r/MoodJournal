@@ -110,18 +110,14 @@ graphTitle1 = 'Happiness/Sadness'
 
 	graph1.on('plotly_click', function(data){
 		console.log(pageTitle[data.points[0].x]);
-		infoBox = document.getElementById("info");
-		infoBox.innerHTML = "<a style=\"color:#8F5834; font-size: 14;\" href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
-		
-		infoBox = document.getElementById("score1");
-		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; text-align:right\">" + "Sad %: " + y1[data.points[0].x] + "</p>";
-		
-		infoBox = document.getElementById("score2");
-		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; text-align:right\">" + "Happy %: " + y2[data.points[0].x] + "</p>";
-	
-		infoBox = document.getElementById("score3");
-		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; text-align:right\">" + "Neutral %: " + y3[data.points[0].x] + "</p>";
-		
+		infoBox = document.getElementById("site");
+		infoBox.innerHTML = "<b>Site: </b><a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+
+		infoBox = document.getElementById("scores");
+		infoBox.innerHTML = "<p style=\"color:#8F5834; font-size: 14; \">" + "Sad %: " + y1[data.points[0].x] + "</p>";
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Happy %: " + y2[data.points[0].x] + "</p>";
+		infoBox.innerHTML += "<p style=\"color:#8F5834; font-size: 14; \">" + "Neutral %: " + y3[data.points[0].x] + "</p>";
+
 
 
 
@@ -154,7 +150,7 @@ graphTitle1 = 'Happiness/Sadness'
 		type: 'scatter',
 		text: text
 	};
-	
+
 	var disgustTrace = {
 		x: x,
 		y: y6,
@@ -214,8 +210,8 @@ graphTitle1 = 'Happiness/Sadness'
 
 	graph2.on('plotly_click', function(data){
 		console.log(pageTitle[data.points[0].x]);
-		infoBox = document.getElementById("info");
-		infoBox.innerHTML = "<a style=\"color:#8F5834; font-size: 14;\" href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
+		infoBox = document.getElementById("site");
+		infoBox.innerHTML += "<a href=" + u[data.points[0].x] + ">" + pageTitle[data.points[0].x] + "</a>";
 		var canvas = document.getElementById('c');
 
 		var img = new Image;
@@ -227,5 +223,5 @@ graphTitle1 = 'Happiness/Sadness'
 	});
 
 
-	
+
 });
