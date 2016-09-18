@@ -27,18 +27,17 @@ function setHappyLevel(timestamp,happy,sad,neutral,anger,contempt,disgust,surpri
 
 }
 
-function getHappyLevel(timestamp) {
-  chrome.storage.sync.get(timestamp, function (obj) {
-    console.log(timestamp, obj);
-  });
-}
+// function getHappyLevel(timestamp) {
+//   chrome.storage.sync.get(timestamp, function (obj) {
+//     console.log(timestamp, obj);
+//   });
+// }
 
 // this is good format for mood journal output --> is now a string
 function timeStamp() {
   var now = new Date();
   var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
   var time = [ now.getHours(), now.getMinutes()];
-  console.log(date)
   // // Convert hour from military time
   // time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
 
@@ -212,7 +211,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                 },
                 function(tabs){
                   if (!tabs[0]) {
-                    console.log("Warning: unknown")
+                    console.log("Warning: unknown tab")
                     result = "unknown";
                   }
                   else {
@@ -220,7 +219,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
                   }
                   setHappyLevel(timestamp, happy, sad, neutral, anger,contempt,disgust,surprise,fear, result);
                 });
-                getHappyLevel(timestamp);
+                // getHappyLevel(timestamp);
 
               }
               else {
