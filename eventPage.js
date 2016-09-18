@@ -33,7 +33,7 @@ function timeStamp() {
   var now = new Date();
   var date = [now.getMonth() + 1, now.getDate(), now.getFullYear()];
   var time = [ now.getHours(), now.getMinutes()];
-
+  console.log(date)
   // // Convert hour from military time
   // time[0] = ( time[0] < 12 ) ? time[0] : time[0] - 12;
 
@@ -43,10 +43,11 @@ function timeStamp() {
   for ( var i = 0; i < 3; i++ ) {
     if ( time[i] < 10 ) {
       time[i] = "0" + time[i];
-      if ( date[i] < 10) {
-        date[i] = "0" + date[i];
-      }
     }
+    if ( date[i] < 10) {
+        date[i] = "0" + date[i];
+    }
+
   }
   return date.join("") + time.join("");
 }
@@ -162,9 +163,9 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             canvas.getContext("2d").drawImage(video, 0 , 0, 320, 240);
             img = canvas.toDataURL("image/png");
             //your code to be executed after 1 second
-          
-          
-          
+
+
+
           $(function() {
             var params = {
               // Request parameters
@@ -226,7 +227,7 @@ chrome.alarms.onAlarm.addListener(function(alarm) {
             });
 
           })
-          }, 200);          
+          }, 200);
         }
         $("video").one("loadeddata", videoListener);
 
