@@ -2,7 +2,7 @@
   "manifest_version": 2,
 
   "name": "Mood Journal",
-  "description": "Mood Journal for passive trackinig and logging of user mood.",
+  "description": "Mood Journal for passive tracking and logging of user mood.",
   "version": "0.2",
   "options_page": "options.html",
    "browser_action": {
