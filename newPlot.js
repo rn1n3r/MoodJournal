@@ -95,8 +95,8 @@ graphTitle1 = 'Happiness/Sadness'
 			title: '% Mood',
 			autorange: true
 		}
-
 	};
+
 
 	graph1 = document.getElementById('graph');
 	Plotly.plot(graph1, data1, layout1).then(function() {
@@ -104,7 +104,7 @@ graphTitle1 = 'Happiness/Sadness'
 			window.requestAnimationFrame(function() {
 
 				Plotly.redraw(graph1);
-			});
+						});
 		});
 	});
 

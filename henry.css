@@ -1,7 +1,9 @@
 body{
-	margin:0px;
+	margin:0;
 }
-
+html {
+	overflow-y: scroll;
+}
 #title {
 
 	height:50%;
@@ -24,8 +26,6 @@ body{
 
 }
 
-
-
 #infobar {
 	height:50%; background-color: #FDD7E4;
 }
@@ -35,7 +35,7 @@ body{
 	justify-content: space-around;
 	padding: 5% 5% 0 5%;
 	font-size: 30;
-	color: #8F5834
+		color: #8F5834
 }
 
 #infobar h1{
